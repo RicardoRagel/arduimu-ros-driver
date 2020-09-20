@@ -1,0 +1,2 @@
+# Arduimu from FTDI
+SUBSYSTEMS=="usb", ATTRS{serial}=="FT9J9IPX", SYMLINK+="arduimu", MODE="0777"

@@ -1,0 +1,21 @@
+<launch>
+	# Set True to use the RPY estimation from the ArduIMU firmware directly
+	<arg name="use_arduimu_rpy" default="false"/>
+
+	# Set the tty port where the device is connected
+	<arg name="portname" default="/dev/arduimu" />
+
+	# ArduImu RPY attitude driver and publisher
+	<group if="$(arg use_arduimu_rpy)">
+		<node pkg="arduimu_ros_driver" type="arduimu_rpy" name="arduimu" output="screen">
+			<param name="portname" value="$(arg portname)" />
+		</node>
+	</group>
+
+	# ArduImu Sensors data driver and publisher
+	<group if="$(eval arg('use_arduimu_rpy')==false)">
+		<node pkg="arduimu_ros_driver" type="arduimu_sensors" name="arduimu" output="screen">
+			<param name="portname"			value="$(arg portname)" />
+		</node>
+	</group>
+</launch>
